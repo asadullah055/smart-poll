@@ -28,7 +28,7 @@ const MyForm = ({
           name="title"
           id="title"
           placeholder="A Dummy Title"
-          value={title}
+          value={title || ""}
           onChange={handleChange}
           invalid={error.title ? true : false}
         />
@@ -41,7 +41,7 @@ const MyForm = ({
           id="description"
           type="textarea"
           placeholder="Describe Your Poll"
-          value={description}
+          value={description || ""}
           onChange={handleChange}
           invalid={error.description ? true : false}
         />
@@ -68,7 +68,7 @@ const MyForm = ({
           option.map((opt, index) => (
             <div className="d-flex my-2" key={opt.id}>
               <Input
-                value={opt.value}
+                value={opt.value || ""}
                 type="text"
                 placeholder="Type option"
                 onChange={(e) => handleOptionChange(e, index)}

@@ -19,12 +19,14 @@ const PollFrom = (props) => {
     });
   };
   const handleOptionChange = (e, i) => {
-    const updateOption = [...pollData.option];
-    updateOption[i].value = e.target.value;
+    setPollData((prevPollData) => {
+      const updateOption = [...prevPollData.option];
+      updateOption[i].value = e.target.value || ""; 
 
-    setPollData({
-      ...pollData,
-      option: updateOption,
+      return {
+        ...prevPollData,
+        option: updateOption,
+      };
     });
   };
   const createOption = () => {
@@ -77,7 +79,7 @@ const PollFrom = (props) => {
     const { title, description, option } = pollData;
     if (!title) {
       error.title = "Please Provide A Title";
-    } else if (title.length < 20) {
+    } else if (title.length < 10) {
       error.title = "Title Too Short";
     } else if (title.length > 100) {
       error.title = "Title Too Long";
@@ -89,7 +91,7 @@ const PollFrom = (props) => {
     }
     const optionError = [];
     console.log(option, typeof option);
-    option.forEach((opt, index) => {
+    option?.forEach((opt, index) => {
       if (!opt.value) {
         optionError[index] = "Option Text Empty";
       } else if (opt.value.length > 100) {
